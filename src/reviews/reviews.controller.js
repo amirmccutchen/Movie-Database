@@ -2,7 +2,7 @@ const reviewsService = require("./reviews.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
 
-//Checks if the review exists based on the id
+// checks if review exists
 
 async function reviewExists(req, res, next) {
   const review = await reviewsService.read(req.params.reviewId);
@@ -16,7 +16,7 @@ async function reviewExists(req, res, next) {
   });
 }
 
-// updates a review based on the id
+// updates a review
 
 async function update(req, res) {
   const updatedReviews = {
