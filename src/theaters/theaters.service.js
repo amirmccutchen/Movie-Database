@@ -1,6 +1,7 @@
 const knex = require("../db/connection");
 const reduceProperties = require("../utils/reduce-properties");
 
+//sets up the reduced properties to each theater
 const reduceMovies = reduceProperties("theater_id", {
   movie_id: ["movies", null, "movie_id"],
   title: ["movies", null, "title"],
@@ -11,13 +12,14 @@ const reduceMovies = reduceProperties("theater_id", {
   is_showing: ["movies", null, "is_showing"],
 });
 
+//list the theater data with added movies data
 function list() {
   return knex("theaters")
     .join("movies_theaters as mt", "mt.theater_id", "theaters.theater_id")
     .join("movies", "movies.movie_id", "mt.movie_id")
     .select("*")
     .then(reduceMovies);
-};
+}
 
 module.exports = {
   list,

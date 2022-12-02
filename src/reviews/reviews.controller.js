@@ -1,31 +1,60 @@
-const service = require("./reviews.service");
+const reviewsService = require("./reviews.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
-async function reviewIsValid(req, res, next) {
-  const { reviewId } = req.params;
-  const matchingReview = await service.read(reviewId);
-  if (matchingReview) {
-    res.locals.review = matchingReview;
+// const VALID_PROPERTIES = ["score", "content"];
+
+//----Middleware----//
+//check the propertis to make sure they match
+// function hasValidProperties(req, res, next) {
+//   const { data = {} } = req.body;
+
+//   const invalidFields = Object.keys(data).filter(
+//     (field) => !VALID_PROPERTIES.includes(field)
+//   );
+
+//   if (invalidFields.length)
+//     return next({
+//       status: 400,
+//       message: `Invalid field(s): ${invalidFields.join(", ")}`,
+//     });
+//   next();
+// }
+
+//Checks to see if the review exists based on the id
+async function reviewExists(req, res, next) {
+  const review = await reviewsService.read(req.params.reviewId);
+  if (review) {
+    res.locals.review = review;
     return next();
   }
-  return next({ status: 404, message: "Review cannot be found." });
+  next({
+    status: 404,
+    message: "Review cannot be found",
+  });
 }
 
+//----Functions----//
+//Updates a review based on the id
+async function update(req, res) {
+  const updatedReviews = {
+    ...res.locals.review,
+    ...req.body.data,
+  };
+  await reviewsService.update(updatedReviews);
+  const data = await reviewsService.getReviewWithCritic(
+    res.locals.review.review_id
+  );
+  res.json({ data: data });
+}
+
+//Deletes a review based on its id
 async function destroy(req, res) {
-  await service.destroy(res.locals.review.review_id);
+  const { review } = res.locals;
+  await reviewsService.delete(review.review_id);
   res.sendStatus(204);
 }
 
-async function update(req, res) {
-  const updatedReview = { ...res.locals.review, ...req.body.data };
-  await service.update(updatedReview);
-  const reviewToReturn = await service.getReviewWithCritic(
-    res.locals.review.review_id
-  );
-  res.json({ data: reviewToReturn });
-}
-
 module.exports = {
-  delete: [asyncErrorBoundary(reviewIsValid), asyncErrorBoundary(destroy)],
-  update: [asyncErrorBoundary(reviewIsValid), asyncErrorBoundary(update)],
-}; 
+  update: [asyncErrorBoundary(reviewExists), asyncErrorBoundary(update)],
+  delete: [asyncErrorBoundary(reviewExists), asyncErrorBoundary(destroy)],
+};
