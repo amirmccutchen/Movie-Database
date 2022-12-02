@@ -11,7 +11,8 @@ const addCritic = mapProperties({
   updated_at: "critic.updated_at",
 });
 
-//will iterate throught the array of reviews to add the appropriate critic properties
+// will iterate throught the array of reviews to add the appropriate critic properties
+
 function iterateAddCritic(reviewsArray) {
   const results = [];
   reviewsArray.forEach((review) => {
@@ -20,12 +21,14 @@ function iterateAddCritic(reviewsArray) {
   return results;
 }
 
-//List all the movies in the database
+// lists all movies
+
 function list() {
   return knex("movies").select("*");
 }
 
-//List all the movies by the is_showing status on the movies_theaters table based
+// lists all movies by the is_showing status on the movies_theaters table based
+
 function listMovies() {
   return knex("movies")
     .join("movies_theaters as mt", "movies.movie_id", "mt.movie_id")
@@ -34,7 +37,7 @@ function listMovies() {
     .groupBy("movies.movie_id");
 }
 
-//List all the movies by id by the theaters
+// lists all the movies by id by the theaters
 function listMoviesByTheaters() {
   return knex("movies_theaters as mt")
     .join("movies as m", "m.movie_id", "mt.movie_id")

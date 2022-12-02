@@ -1,4 +1,5 @@
 exports.seed = function (knex) {
+  
   return knex("movies").insert([
     {
       title: "Spirited Away",
