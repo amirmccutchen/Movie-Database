@@ -9,7 +9,7 @@ const addCritics = mapProperties({
   organization_name: "critic.organization_name",
 });
 
-// lists the review
+// lists review
 
 function read(review_id) {
   return knex("reviews").select("*").where({ review_id: review_id }).first();
@@ -24,7 +24,7 @@ function update(updatedReview) {
     .update(updatedReview);
 }
 
-// lists the reviews and adds the critics table data for the specific movie and review
+// lists reviews and adds critics table data for specific movies and reviews
 
 function getReviewWithCritic(reviewId) {
   return knex("reviews as r")
@@ -38,7 +38,7 @@ function getReviewWithCritic(reviewId) {
     });
 }
 
-// deletes the review
+// deletes review
 
 function destroy(review_id) {
   return knex("reviews").where({ review_id }).del();
