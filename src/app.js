@@ -12,11 +12,11 @@ const notFound = require("./utils/errors/notFound");
 app.use(cors({ origin: "https://frontend-ko0r.onrender.com" }));
 app.use(express.json());
 
-// const router = express.Router();
-// router.get("/", cors(), (req, res) => {
-//     res.json({ message: "Welcome! You can access the data using these routes: /movies, /movies/:movieId, /reviews, /reviews/:reviewId, /theaters, movies/:movieId/reviews, /movies/:movieId/reviews/:reviewId" })
-// })
-// app.use("/", router);
+const router = express.Router();
+router.get("/", cors(), (req, res) => {
+    res.json({ message: "Welcome! You can access the data using these routes: /movies, /movies/:movieId, /reviews, /reviews/:reviewId, /theaters, movies/:movieId/reviews, /movies/:movieId/reviews/:reviewId" })
+})
+app.use("/", router);
 app.use("/movies", moviesRouter);
 app.use("/reviews", reviewsRouter);
 app.use("/theaters", theatersRouter);
