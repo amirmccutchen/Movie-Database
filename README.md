@@ -18,5 +18,4 @@
 - Used Knex to write database queries, completeing CRUD routes in an Express server
 - Utilized joined and nested data with Knex (treeize)
 - Wrote database migrations using Knex's migration tool
-- Deployed to Vercel with matching front end.
 
