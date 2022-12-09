@@ -1,24 +1,26 @@
-if (process.env.USER) require("dotenv").config();
+if (process.env.DATABASE_URL) require("dotenv").config();
+
 const express = require("express");
 const app = express();
-
 const cors = require("cors");
-
 const moviesRouter = require("./movies/movies.router");
 const reviewsRouter = require("./reviews/reviews.router");
 const theatersRouter = require("./theaters/theaters.router");
-const errorHandler = require("./errors/errorHandler");
-const notFound = require("./errors/notFound");
+const errorHandler = require("./utils/errors/errorHandler");
+const notFound = require("./utils/errors/notFound");
 
-app.use(cors());
+app.use(cors({ origin: "https://frontend-ko0r.onrender.com" }));
 app.use(express.json());
 
-// router
+// const router = express.Router();
+// router.get("/", cors(), (req, res) => {
+//     res.json({ message: "Welcome! You can access the data using these routes: /movies, /movies/:movieId, /reviews, /reviews/:reviewId, /theaters, movies/:movieId/reviews, /movies/:movieId/reviews/:reviewId" })
+// })
+// app.use("/", router);
 app.use("/movies", moviesRouter);
 app.use("/reviews", reviewsRouter);
 app.use("/theaters", theatersRouter);
 
-// error handlers
 app.use(notFound);
 app.use(errorHandler);
 
