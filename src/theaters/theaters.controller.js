@@ -1,12 +1,12 @@
 const theatersService = require("./theaters.service");
-const asyncErrorBoundary = require("../utils/errors/asyncErrorBoundary");
+const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
-// Lists all of the theaters
-async function list(req, res, next) {
-    const data = await theatersService.list();
-    res.send({ data });
+//----functions----//
+//Lists all the thaters
+async function list(req, res) {
+  res.json({ data: await theatersService.list() });
 }
 
 module.exports = {
-    list: asyncErrorBoundary(list),
-}
+  list: asyncErrorBoundary(list),
+};

@@ -17,8 +17,7 @@
     "start:dev": "nodemon src/server.js",
     "start:solution": "docker-compose up --build",
     "test": "jest",
-    "test:solution": "docker-compose build && docker-compose run --rm api npm test && docker-compose down",
-    "make": "npx knex migrate:make"
+    "test:solution": "docker-compose build && docker-compose run --rm api npm test && docker-compose down"
   },
   "keywords": [],
   "author": "",
@@ -29,7 +28,10 @@
     "express": "^4.17.1",
     "knex": "^0.21.12",
     "morgan": "^1.10.0",
+    "nanoid": "^4.0.0",
     "pg": "^8.4.2",
+    "pino-http": "^8.2.1",
+    "pino-pretty": "^9.1.1",
     "sqlite3": "^5.0.0"
   },
   "devDependencies": {
