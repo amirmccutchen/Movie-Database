@@ -1,26 +1,8 @@
 const reviewsService = require("./reviews.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
-// const VALID_PROPERTIES = ["score", "content"];
+// checks if review exists based on id
 
-//----Middleware----//
-//check the propertis to make sure they match
-// function hasValidProperties(req, res, next) {
-//   const { data = {} } = req.body;
-
-//   const invalidFields = Object.keys(data).filter(
-//     (field) => !VALID_PROPERTIES.includes(field)
-//   );
-
-//   if (invalidFields.length)
-//     return next({
-//       status: 400,
-//       message: `Invalid field(s): ${invalidFields.join(", ")}`,
-//     });
-//   next();
-// }
-
-//Checks to see if the review exists based on the id
 async function reviewExists(req, res, next) {
   const review = await reviewsService.read(req.params.reviewId);
   if (review) {
@@ -33,8 +15,8 @@ async function reviewExists(req, res, next) {
   });
 }
 
-//----Functions----//
-//Updates a review based on the id
+//Updates review based on id
+
 async function update(req, res) {
   const updatedReviews = {
     ...res.locals.review,
@@ -47,7 +29,8 @@ async function update(req, res) {
   res.json({ data: data });
 }
 
-//Deletes a review based on its id
+//Deletes review based on id
+
 async function destroy(req, res) {
   const { review } = res.locals;
   await reviewsService.delete(review.review_id);

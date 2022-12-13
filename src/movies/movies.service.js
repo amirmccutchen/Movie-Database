@@ -11,7 +11,8 @@ const addCritic = mapProperties({
   updated_at: "critic.updated_at",
 });
 
-//will iterate throught the array of reviews to add the appropriate critic properties
+// will iterate through the array of reviews to add appropriate critic properties
+
 function iterateAddCritic(reviewsArray) {
   const results = [];
   reviewsArray.forEach((review) => {
@@ -20,12 +21,14 @@ function iterateAddCritic(reviewsArray) {
   return results;
 }
 
-//List all the movies in the database
+// List all the movies in the database
+
 function list() {
   return knex("movies").select("*");
 }
 
-//List all the movies by the is_showing status on the movies_theaters table based
+//List all the movies by the is_showing status on the movies_theaters table
+
 function listMovies() {
   return knex("movies")
     .join("movies_theaters as mt", "movies.movie_id", "mt.movie_id")
@@ -34,7 +37,8 @@ function listMovies() {
     .groupBy("movies.movie_id");
 }
 
-//List all the movies by id by the theaters
+//List all movies by id by theater
+
 function listMoviesByTheaters() {
   return knex("movies_theaters as mt")
     .join("movies as m", "m.movie_id", "mt.movie_id")
@@ -43,7 +47,8 @@ function listMoviesByTheaters() {
     .groupBy("th.theater_id");
 }
 
-//List the movies by id by reviews
+// List movies by id by reviews
+
 function listMoviesByReviews(movie_id) {
   console.log(movie_id);
   return knex("movies as m")
@@ -54,7 +59,7 @@ function listMoviesByReviews(movie_id) {
     .then((reviews) => iterateAddCritic(reviews));
 }
 
-//selects the the movie based on the movie_id
+// selects the movie based on movie_id
 function read(movieId) {
   return knex("movies").select("*").where({ movie_id: movieId }).first();
 }

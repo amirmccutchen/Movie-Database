@@ -9,9 +9,6 @@ const reviewsRouter = require("./reviews/reviews.router");
 const theatersRouter = require("./theaters/theaters.router");
 const errorHandler = require("./errors/errorHandler");
 const notFound = require("./errors/notFound");
-// const logger = require("./config/logger");
-
-// app.use(logger);
 app.use(cors());
 app.use(express.json());
 
