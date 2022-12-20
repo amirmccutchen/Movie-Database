@@ -1,4 +1,4 @@
-# Thinkful Capstone: WeLoveMovies
+# Project : WeLoveMovies
 
 Backend Deployed at: https://amirswelovemovies.onrender.com/
 
