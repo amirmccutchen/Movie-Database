@@ -2,8 +2,6 @@
 
 Backend Deployed at: https://amirswelovemovies.onrender.com/
 
-Frontend Deployed at :
-
 ## Project Overview
 
 Created database and back-end application for an API which returns information about movies, theaters, reviews and critics.
