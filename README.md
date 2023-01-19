@@ -54,7 +54,7 @@ The following routes and methods are available:
 
 ### Reviews
 
-#### `/reviews/:reviewId`
+#### `/movies/:movieId/reviews/:reviewId`
 
 - `PUT` updates data for requested review and returns all columns for that review including updated and detailed critic data
 
