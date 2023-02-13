@@ -1,4 +1,4 @@
-# Project : WeLoveMovies
+# Project : Movie Database
 
 Backend Deployed at: https://amirswelovemovies.onrender.com/
 
